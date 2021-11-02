@@ -16,6 +16,11 @@ const lsKeyUserSpeed = `${lsKeyPrefix}user-speed`
 const lsKeyIsAdFF = `${lsKeyPrefix}is-ad-ff`
 let panner = null
 
+// settings
+const speeds = [1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3]
+const fontSize = 2
+const opacity = 0.1
+
 function resetBoldness(className) {
   const speedSelectors = document.getElementsByClassName(className)
   for (let i = 0; i < speedSelectors.length; i += 1) {
@@ -126,7 +131,7 @@ function waitForTargetElement(callback) {
 function appendCss() {
   const css = `
     .techotom-speed-control, .techotom-balance-control {
-      opacity: 0.1;
+      opacity: ${opacity};
       color: #000;
     }
     .techotom-speed-control:hover, .techotom-balance-control:hover {
@@ -145,7 +150,7 @@ function appendCss() {
 
 function addCommonStyles(div) {
   div.style.position = 'absolute'
-  div.style.fontSize = '2em'
+  div.style.fontSize = `${fontSize}em`
   div.style.background = '#FFF'
   div.style.zIndex = '999'
   div.style.top = '0'
@@ -158,18 +163,7 @@ function appendSpeedControlContainer(targetElement) {
   div.classList = 'techotom-speed-control'
   addCommonStyles(div)
   div.style.margin = '6em 0 0 2em'
-  appendSpeedControl(div, 1)
-  appendSpeedControl(div, 1.25)
-  appendSpeedControl(div, 1.33)
-  appendSpeedControl(div, 1.5)
-  appendSpeedControl(div, 1.75)
-  appendSpeedControl(div, 1.88)
-  appendSpeedControl(div, 2)
-  appendSpeedControl(div, 2.1)
-  appendSpeedControl(div, 2.25)
-  appendSpeedControl(div, 2.5)
-  appendSpeedControl(div, 2.75)
-  appendSpeedControl(div, 3)
+  speeds.forEach(i => appendSpeedControl(div, i))
   appendSpeedControl(div, 10, maxFastnessAnchorId)
   targetElement.insertBefore(div, targetElement.childNodes[0])
 }
